@@ -1,0 +1,77 @@
+{% extends "br_colpon/base.html" %}
+{% block title %}Offers{% endblock %}
+{% block css %}merchant{% endblock %}
+{% block content %}
+  <div class="breadcrumb-wrap container">
+    <div class="breadcrumb-row">
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          <li class="active">Melhores Ofertas</li>
+        </ol>
+      </div> <!-- /.breadcrumb-row -->
+  </div> <!-- /.breadcrumb-wrap -->
+  <div class="container">
+    <div class="row">
+      <div class="content-main container col-md-19 col-md-push-5">
+        <div class="merchant-title">
+          <h1>Melhores ofertas e cupons das categorias mais populares</strong></h1>
+        </div>
+        <div class="merchant-offer">
+          {% for hotoffer in hotoffers %}
+          <div class="stack-item row" data-link="{{ hotoffer.link }}" data-title="{{ hotoffer.name }}" data-code="{{ hotoffer.code }}" data-type="{{ hotoffer.type }}" data-img="{{ store.logo.url }}" data-name="{{ store.name }}" data-id="{{ hotoffer.id }}" data-rule="{{ hotoffer.desc }}">
+            <div class="offer-con clearfix row">
+              <div class="offer-info col-md-5 col-xs-11 ">
+                {% if hotoffer.type == 'C' %}
+                <p class="show-discount">
+                  <a class="offer-popup" href="#{{ hotoffer.id }}" target="_blank">
+                    <strong class="glyphicon glyphicon-tags"></strong>
+                      <span>Códigos</span>
+                  </a>
+                </p>
+                {% else %}
+                <p class="show-normal">
+                  <a class="offer-popup" href="#{{ hotoffer.id }}" target="_blank">
+                    <strong class="glyphicon glyphicon-tags"></strong>
+                      <span>Oferta</span>
+                  </a>
+                </p>
+                {% endif %}
+                <p class="offer-status offer-status-"></p>
+              </div>
+              <div class="offer-btn col-md-7 col-md-push-12 col-xs-13">
+                  {% if hotoffer.type == 'C' %}
+                  <a class="offer-popup move-btn" href="#{{ hotoffer.id }}" target="_blank">
+                    <span class="move-btn-bottom">{{ hotoffer.code }}</span>
+                    <span class="move-btn-cover">Pegar cupom <i class="move-corner"></i></span>
+                  </a>
+                  <button class="move-btn-bottom open-code hidden" type="button">{{ hotoffer.code }}</button>
+                  {% else %}
+                  <a class="offer-popup offer-nocode btn btn-info" href="#{{ hotoffer.id }}" target="_blank">Compre agora</a>
+                  {% endif %}
+              </div>
+              <div class="offer-title col-md-12 col-md-pull-7 col-xs-24">
+                <h3>
+                  <a class="offer-popup" href="#{{ hotoffer.id }}" target="_blank">{{ hotoffer.name }}</a>
+                </h3>
+                <div class="discountRule showMore">
+                    <p>{{ hotoffer.desc}}</p>
+                  <span><i></i></span>
+                </div>
+              </div>
+            </div> <!-- /.offer-con -->
+          </div><!-- /.stack-item -->
+          {% endfor %}
+        </div><!-- /.merchant-offer -->
+      </div><!-- /.content-main -->
+
+      <div class="content-side col-md-5 col-md-pull-19">
+        <dl monkey="hot_merchant">
+          <dt class="title">As lojas mais populares:</dt>
+            {% for hotstore in hotstores %}
+            <dd><a href="{% url 'store' hotstore.slug %}">{{ hotstore.name }}</a></dd>
+            {% endfor %}
+        </dl>
+      </div><!-- /.content-side -->
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - Colpon</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" type="image/png" href="{% static 'br_colpon/favicon.ico' %}">
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{% static 'br_colpon/css/bootstrap.min.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'br_colpon/css/base.css'  %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'br_colpon/css/' %}{% block css %}{% endblock %}.css" media="all">
+</head>
+<body>
+    {% if request.path == '/' or '/search/' in request.path %}
+    {% include 'br_colpon/include/homeheader.html' %}
+    {% else %}
+    {% include 'br_colpon/include/header.html' %}
+    {% endif %}
+    {% block content %}{% endblock %}
+    {% include 'br_colpon/include/footer.html' %}
+    {% include 'br_colpon/include/offerPopup.html' %}
+    <script src="{% static 'br_colpon/js/ZeroClipboard.js' %}"></script>
+    <script src="{% static 'br_colpon/js/copymain.js' %}"></script>
+    <script src="{% static 'br_colpon/js/jquery.min.js' %}"></script>
+    <script src="{% static 'br_colpon/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'br_colpon/js/base-response.js' %}"></script>
+    <script type="text/javascript">
+    $(function(){
+        var popID = conf.locationHash,targetItem,top,noHost;
+        if(popID&&popID!='_=_'){
+          targetItem = $('.stack-item[data-id='+popID+']'); 
+          if(targetItem.length){
+            setTimeout(function(){  
+              top = targetItem.offset().top -200;
+              $('body,html').animate({scrollTop:top+'px'},300);
+              conf.popup.offerPopup(targetItem);      
+              $('#offerPopup').modal('show');     
+            },50);  
+            targetItem.find('.move-btn').addClass('hidden');
+            targetItem.find('.open-code').removeClass('hidden');
+          }
+        }
+      });
+      $('.offer-popup').click(function(event){   
+        var me = $(this),
+            obj = me.parents('.stack-item'),
+            monkey = '';
+        monkey = me.parents("[monkey]").attr('monkey') || 'other';  
+        conf.popup.init(obj,monkey);
+      });
+      $('.stack-item .discountRule').click(function(){
+        $(this).toggleClass('showMore');
+      });
+    </script>
+</body>
+</html>

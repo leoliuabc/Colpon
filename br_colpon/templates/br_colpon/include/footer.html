@@ -1,0 +1,36 @@
+  {% load static %}
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="quick-link col-sm-12 col-md-6 col-md-push-6">
+          <h4>Links rápidos:</h4>
+          <ul class="clearfix">
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'offers' %}">Cupons</a></li>
+            <li><a href="{% url 'stores' %}">Lojas</a></li>
+          </ul>
+        </div>
+        <div class="quick-link col-sm-12 col-md-6 col-md-push-6">
+          <h4>Temas especiais:</h4>
+          <ul class="clearfix">
+            <li><a rel="nofollow" href="#">Dia das Mães</a></li>
+            <li><a rel="nofollow" href="#">Dia dos Namorados</a></li>
+            <li><a rel="nofollow" href="#">Chrome Extensão</a></li>
+          </ul>
+        </div>
+        <div class="bottom-fb col-xs-12 col-xs-push-12 col-sm-12 col-sm-push-12 col-md-6 col-md-push-6">
+          <div class="fb-like-box-wrap">
+          </div>
+        </div>
+        <div class="site-des col-xs-12 col-xs-pull-12 col-sm-12 col-sm-pull-12 col-md-6 col-md-pull-18">
+          <p>
+          <img class="img-responsive" src="{% static 'coupons/img/logo-white-186x74.png' %}" alt="Colpon">
+          </p>
+          <p class="des">Colpon é um amigo do bolso, pegue descontos e ganhe cashbacks sem precisar sair do sofá.</p>
+        </div>
+      </div><!-- /.row -->
+      <div class="row bottom">
+          <p>© Copyright 2015-2018. Todos os direitos reservados.</p>
+      </div><!-- /.bottom -->
+    </div><!-- /.container -->
+  </div><!-- /.footer -->

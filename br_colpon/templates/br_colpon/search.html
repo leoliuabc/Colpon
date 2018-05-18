@@ -1,0 +1,64 @@
+{% extends "br_colpon/base.html" %}
+{% block title %}Search{% endblock %}
+{% block css %}index{% endblock %}
+{% block content %}
+{% if stores %}
+<div class="merchant-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-20 col-xs-24">
+                <h1 class="block-title">Lojas</h1>
+            </div>
+        </div>
+        <div class="row">
+            <ul>
+                {% for store in stores %}
+                <li>
+                    <div>
+                        <a href="{% url 'store' store.slug %}" title="Cupom de desconto {{ store.name }}">
+                            <img src="{{ store.logo.url }}" alt="Cupom de desconto {{ store.name }}">
+                        </a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- /.merchant-list -->
+{% endif %}
+{% if offers %}
+<div class="offer-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-20 col-xs-24">
+                <h1 class="block-title">Cupons</h1>
+            </div>
+        </div>
+        <div class="row">
+            <ul>
+                {% for offer in offers %}
+                <li class="offer-item stack-item col-md-6 col-sm-8 col-xs-12" data-link="{{ offer.link }}" data-title="{{ offer.name }}" data-code="{{ offer.code }}" data-type="{{ offer.type }}" data-img="{{ offer.store.logo.url }}" data-name="{{ offer.store.name }}" data-id="{{ offer.id }}" data-rule="{{ offer.desc }}">
+                    <div class="stack-item-con">
+                        <a class="pic" href="{% url 'store' offer.store.slug %}" title="Cupom de Desconto {{ offer.store.name }}" target="_blank">
+                            <img src="{{ offer.store.logo.url }}" alt="Cupom de Desconto {{ offer.store.name }}">
+                        </a>
+                        <p class="offer-title">
+                        <a class="offer-title-con offer-popup" href="#{{ offer.id }}" title="Cupom de Desconto {{offer.store.name }}" target="_blank">{{ offer.name }}</a>
+                        </p>
+                        <p>
+                        {% if offer.type == "C" %}
+                        <a class="offer-popup btn btn-info" href="#{{ offer.id }}" title="Cupom de Desconto {{ offer.store.name }}" target="_blank">Pegar cupom</a>
+                        {% else %}
+                        <a class="offer-nocode offer-popup btn btn-info" href="#{{ offer.id }}" title="Cupom de Desconto {{ offer.store.name }}" target="_blank">Compre agora</a>
+                        {% endif %}
+                        </p>
+                        <a class="more-offer" href="{% url 'offer' offer.id %}">Ver mais detalhes »</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- /.offer-list -->
+{% endif %}
+{% endblock %}

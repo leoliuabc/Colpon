@@ -1,0 +1,38 @@
+{% extends "br_colpon/base.html" %}
+{% block title %}Stores{% endblock %}
+{% block css %}merchant-list{% endblock %}
+{% block content %}
+  <div class="content container">
+    <div class="breadcrumb-row">
+      <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">Todos os Lojas</li>
+      </ol>
+    </div> <!-- /.breadcrumb-row -->
+    <div class="nav-list">
+      <ul>
+        {% for i in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' %}{% for s in stores %}{% if i == s.name|slice:'1' %}
+        <li><a href="#grp-{{ i }}">{{ i }}</a></li>
+        {% endif %} {% endfor %}{% endfor %}
+      </ul>
+    </div> <!-- /.nav-list -->
+    <div class="merchant-list">
+      <ul>
+        {% for i in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' %}{% for s in stores %}{% if i == s.name|slice:'1' %}
+        <li name="grp-{{ i }}" id="grp-{{ i }}" class="list-item row">
+          <div class="title col-xs-4">
+              <h3>{{ i }}</h3>
+          </div>
+          <div class="con col-xs-20">
+            <ul>
+            {% for store in stores %}{% if i == store.name|slice:'1' %}
+              <li><a href="{% url 'store' store.slug %}" target="_blank">{{ store.name }}</a></li>
+            {% endif %}{% endfor %}
+            </ul>
+          </div>
+        </li>
+        {% endif %}{% endfor %}{% endfor %}
+      </ul>
+    </div> <!-- /.merchant-list -->
+  </div> <!-- /.container -->
+{% endblock %}

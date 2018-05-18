@@ -1,0 +1,67 @@
+{% extends "br_colpon/base.html" %}
+{% block title %}Home{% endblock %}
+{% block css %}index{% endblock %}
+{% block content %}
+<div class="merchant-list">
+    <div class="container">
+        <div class="title"></div>
+        <div class="row">
+            <ul>
+                {% for hotstore in hotstores %}
+                <li>
+                    <div>
+                        <a href="{% url 'store' hotstore.slug %}" title="Cupom de desconto {{ hotstore.name }}">
+                            <img src="{{ hotstore.logo.url }}" alt="Cupom de desconto {{ hotstore.name }}">
+                        </a>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="more-merchant">
+                    <div><a href="{% url 'stores' %}"><i class="glyphicon glyphicon-menu-right"></i><span>Mais Lojas</span></a></div>
+                </li>
+            </ul>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- /.merchant-list -->
+<div class="offer-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-20 col-xs-24">
+                <h1 class="block-title">Os últimas cupons de descontos e ofertas online</h1>
+            </div>
+            <div class="more-sort-offer col-sm-4 col-xs-24">
+                <a href="{% url 'offers' %}">Mais cupons »</a>
+            </div>
+        </div>
+        <div class="row">
+            <ul>
+                {% for hotoffer in hotoffers %}
+                <li class="offer-item stack-item col-md-6 col-sm-8 col-xs-12" data-link="{{ hotoffer.link }}" data-title="{{ hotoffer.name }}" data-code="{{ hotoffer.code }}" data-type="{{ hotoffer.type }}" data-img="{{ hotoffer.store.logo.url }}" data-name="{{ hotoffer.store.name }}" data-id="{{ hotoffer.id }}" data-rule="{{ hotoffer.desc }}">
+                    <div class="stack-item-con">
+                        <a class="pic" href="{% url 'store' hotoffer.store.slug %}" title="Cupom de Desconto {{ hotoffer.store.name }}" target="_blank">
+                            <img src="{{ hotoffer.store.logo.url }}" alt="Cupom de Desconto {{ hotoffer.store.name }}">
+                        </a>
+                        <p class="offer-title">
+                        <a class="offer-title-con offer-popup" href="#{{ hotoffer.id }}" title="Cupom de Desconto {{hotoffer.store.name }}" target="_blank">{{ hotoffer.name }}</a>
+                        </p>
+                        <p>
+                        {% if hotoffer.type == "C" %}
+                        <a class="offer-popup btn btn-info" href="#{{ hotoffer.id }}" title="Cupom de Desconto {{ hotoffer.store.name }}" target="_blank">Pegar cupom</a>
+                        {% else %}
+                        <a class="offer-nocode offer-popup btn btn-info" href="#{{ hotoffer.id }}" title="Cupom de Desconto {{ hotoffer.store.name }}" target="_blank">Compre agora</a>
+                        {% endif %}
+                        </p>
+                        <a class="more-offer" href="{% url 'offer' hotoffer.id %}">Ver mais detalhes »</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div><!-- /.row -->
+        <div class="offer-list-more row">
+            <div class="col-sm-8 col-sm-offset-8" monkey="more-recommend-offer2">
+                <a class="btn btn-default" href="{% url 'offers' %}">Mais cupons</a>
+            </div>
+        </div><!-- /.offer-list-more -->
+    </div><!-- /.container -->
+</div><!-- /.offer-list -->
+{% endblock %}
